@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes.teleop;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -20,6 +22,7 @@ public class TeleOpDrive extends OpMode {
      */
     @Override
     public void init() {
+        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         robot = new Robot(hardwareMap);
         this.gamepadOne = new GamepadEx(gamepad1);
         this.gamepadTwo = new GamepadEx(gamepad2);
