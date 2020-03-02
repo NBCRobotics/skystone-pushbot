@@ -63,7 +63,7 @@ public class DriveConstants {
      */
     public static DriveConstraints BASE_CONSTRAINTS = new DriveConstraints(
             10.0, 10.0, 0.0,
-            Math.toRadians(90), Math.toRadians(90), 0.0
+            Math.toRadians(90), Math.toRadians(90), Math.toRadians(0.0)
     );
 
 
