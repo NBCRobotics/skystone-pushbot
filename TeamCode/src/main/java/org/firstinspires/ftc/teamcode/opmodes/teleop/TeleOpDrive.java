@@ -35,7 +35,7 @@ public class TeleOpDrive extends OpMode {
      */
     @Override
     public void loop() {
-        robot.drive(-gamepadOne.getLeftY(), -gamepadOne.getRightY());
+        robot.drive(gamepadOne.getLeftY(), gamepadOne.getRightY());
 
         telemetry.addData("Status: ", "Running...");
         telemetry.addLine();

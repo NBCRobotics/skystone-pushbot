@@ -78,7 +78,7 @@ public class SampleTankDrive extends TankDrive {
 
     private List<Pose2d> poseHistory;
 
-    private List<DcMotorEx> motors, leftMotors, rightMotors;
+    private List<DcMotor> motors, leftMotors, rightMotors;
     private BNO055IMU imu;
 
     public SampleTankDrive(HardwareMap hardwareMap) {
@@ -120,8 +120,8 @@ public class SampleTankDrive extends TankDrive {
         */
 
         // add/remove motors depending on your robot (e.g., 6WD)
-        DcMotorEx leftDrive = hardwareMap.get(DcMotorEx.class, "leftDrive");
-        DcMotorEx rightDrive = hardwareMap.get(DcMotorEx.class, "rightDrive");
+        DcMotor leftDrive = hardwareMap.get(DcMotor.class, "leftDrive");
+        DcMotor rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");
         //DcMotorEx rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
         //DcMotorEx rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
 
@@ -129,7 +129,7 @@ public class SampleTankDrive extends TankDrive {
         leftMotors = Arrays.asList(leftDrive);
         rightMotors = Arrays.asList(rightDrive);
 
-        for (DcMotorEx motor : motors) {
+        for (DcMotor motor : motors) {
             MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
             motorConfigurationType.setAchieveableMaxRPMFraction(1.0);
             motor.setMotorType(motorConfigurationType);
@@ -146,7 +146,7 @@ public class SampleTankDrive extends TankDrive {
         }
 
         // TODO: reverse any motors using DcMotor.setDirection()
-        for (DcMotorEx motor : leftMotors) {
+        for (DcMotor motor : leftMotors) {
             motor.setDirection(DcMotorSimple.Direction.REVERSE);
         }
 
@@ -290,13 +290,13 @@ public class SampleTankDrive extends TankDrive {
     }
 
     public void setMode(DcMotor.RunMode runMode) {
-        for (DcMotorEx motor : motors) {
+        for (DcMotor motor : motors) {
             motor.setMode(runMode);
         }
     }
 
     public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
-        for (DcMotorEx motor : motors) {
+        for (DcMotor motor : motors) {
             motor.setZeroPowerBehavior(zeroPowerBehavior);
         }
     }
@@ -307,7 +307,7 @@ public class SampleTankDrive extends TankDrive {
     }
 
     public void setPIDCoefficients(DcMotor.RunMode runMode, PIDCoefficients coefficients) {
-        for (DcMotorEx motor : motors) {
+        for (DcMotor motor : motors) {
             motor.setPIDFCoefficients(runMode, new PIDFCoefficients(
                     coefficients.kP, coefficients.kI, coefficients.kD, getMotorVelocityF()
             ));
@@ -318,10 +318,10 @@ public class SampleTankDrive extends TankDrive {
     @Override
     public List<Double> getWheelPositions() {
         double leftSum = 0, rightSum = 0;
-        for (DcMotorEx leftMotor : leftMotors) {
+        for (DcMotor leftMotor : leftMotors) {
             leftSum += encoderTicksToInches(leftMotor.getCurrentPosition());
         }
-        for (DcMotorEx rightMotor : rightMotors) {
+        for (DcMotor rightMotor : rightMotors) {
             rightSum += encoderTicksToInches(rightMotor.getCurrentPosition());
         }
         return Arrays.asList(leftSum / leftMotors.size(), rightSum / rightMotors.size());
@@ -329,10 +329,10 @@ public class SampleTankDrive extends TankDrive {
 
     public List<Double> getWheelVelocities() {
         double leftSum = 0, rightSum = 0;
-        for (DcMotorEx leftMotor : leftMotors) {
+        for (DcMotor leftMotor : leftMotors) {
             leftSum += encoderTicksToInches(leftMotor.getVelocity());
         }
-        for (DcMotorEx rightMotor : rightMotors) {
+        for (DcMotor rightMotor : rightMotors) {
             rightSum += encoderTicksToInches(rightMotor.getVelocity());
         }
         return Arrays.asList(leftSum / leftMotors.size(), rightSum / rightMotors.size());
@@ -340,10 +340,10 @@ public class SampleTankDrive extends TankDrive {
 
     @Override
     public void setMotorPowers(double v, double v1) {
-        for (DcMotorEx leftMotor : leftMotors) {
+        for (DcMotor leftMotor : leftMotors) {
             leftMotor.setPower(v);
         }
-        for (DcMotorEx rightMotor : rightMotors) {
+        for (DcMotor rightMotor : rightMotors) {
             rightMotor.setPower(v1);
         }
     }

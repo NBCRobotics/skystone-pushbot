@@ -7,25 +7,25 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Robot {
 
-    private DcMotorEx leftDrive;
-    private DcMotorEx rightDrive;
+    private DcMotor leftDrive;
+    private DcMotor rightDrive;
 
-    private DcMotorEx[] motors;
+    private DcMotor[] motors;
 
     public Robot(HardwareMap hardwareMap) {
-        this.leftDrive = hardwareMap.get(DcMotorEx.class, "leftDrive");
-        this.rightDrive = hardwareMap.get(DcMotorEx.class, "rightDrive");
+        this.leftDrive = hardwareMap.get(DcMotor.class, "leftDrive");
+        this.rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");
 
-        this.motors = new DcMotorEx[]{leftDrive, rightDrive};
+        this.motors = new DcMotor[]{leftDrive, rightDrive};
 
-        for (DcMotorEx motor : motors) {
+        for (DcMotor motor : motors) {
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             motor.setPower(0);
         }
 
         this.leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        this.rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        this.rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public void drive(double leftPower, double rightPower) {
